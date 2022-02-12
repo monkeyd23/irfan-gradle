@@ -4,8 +4,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import org.assertj.core.api.Assertions;
-import org.junit.Assert;
+import hooks.GUITestBase;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -14,7 +13,10 @@ import pages.LoginPage;
 
 import java.util.List;
 
-public class stepDefinition {
+import static org.assertj.core.api.Assertions.assertThat;
+
+public class stepDefinition extends GUITestBase {
+    private WebDriver driver;
 
     static String driverPath = System.getProperty("user.dir") + "/src/test/drivers/";
     static LoginPage loginPage = getLoginPage();
@@ -32,7 +34,7 @@ public class stepDefinition {
     @Given("^User is at login page$")
     public void user_is_at_login_page() {
         loginPage.clickSignIn().click();
-        Assertions.assertThat(loginPage.verifySignInTitle().getText().equals("Sign-In"));
+        assertThat(loginPage.verifySignInTitle().getText().equals("Sign-In"));
     }
 
     @When("^User login into application with (.*) and (.*)$")
@@ -49,9 +51,9 @@ public class stepDefinition {
         loginPage.searchBox().sendKeys(product);
         loginPage.searchBtn().click();
         List<WebElement> products = loginPage.products();
-        for(WebElement e : products) {
+        for (WebElement e : products) {
             System.out.println("List : " + e.getText());
-            Assertions.assertThat(e.getText().contains("Apple iPhone"));
+            assertThat(e.getText().contains("Apple iPhone"));
         }
         System.out.println("Home page is populated");
     }
@@ -62,10 +64,10 @@ public class stepDefinition {
         loginPage.selectProduct().click();
         loginPage.implicitWait("10", "secs");
         loginPage.currentWindow();
-        Assertions.assertThat(loginPage.productTitle().getText().contains(product));
+        assertThat(loginPage.productTitle().getText().contains(product));
         loginPage.addToCart().click();
         loginPage.implicitWait("10", "secs");
-        Assertions.assertThat(loginPage.addToCartMsg().getText().equals("Added to Cart"));
+        assertThat(loginPage.addToCartMsg().getText().equals("Added to Cart"));
         System.out.println("Cards are displayed");
     }
 
@@ -73,7 +75,7 @@ public class stepDefinition {
     public void verify_cart_subtotal(String product) {
         loginPage.cartBtn().click();
         loginPage.shoppingCartTitle().isDisplayed();
-        Assertions.assertThat(loginPage.productTitle().getText().contains(product));
+        assertThat(loginPage.productTitle().getText().contains(product));
     }
 
     @And("^Cards are displayed$")

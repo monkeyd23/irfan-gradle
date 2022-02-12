@@ -1,5 +1,6 @@
 package pages;
 
+import hooks.GUITestBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -9,9 +10,9 @@ import java.util.concurrent.TimeUnit;
 
 import static java.lang.Thread.sleep;
 
-public class LoginPage {
+public class LoginPage extends GUITestBase {
 
-    private final WebDriver driver;
+    private WebDriver driver = getDriver();
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
@@ -32,23 +33,64 @@ public class LoginPage {
     By CART_BTN = By.xpath("//span[text()=' Cart ']");
     By SHOPPING_CART_TITLE = By.xpath("//h1[contains(text(),'Shopping Cart')]");
 
-    public WebElement clickSignIn() { return driver.findElement(SIGN_IN); }
-    public WebElement verifySignInTitle() { return driver.findElement(SIGN_IN_TITLE); }
-    public WebElement emailField() {  return driver.findElement(EMAIL_FIELD); }
-    public WebElement continueBtn() {  return driver.findElement(CONTINUE_BTN); }
-    public WebElement passwdField() {  return driver.findElement(PASSWD_FIELD); }
-    public WebElement searchBox() {  return driver.findElement(SEARCH_BOX); }
-    public WebElement searchBtn() {  return driver.findElement(SEARCH_BTN); }
-    public List<WebElement> products() { return driver.findElements(PRODUCTS); }
-    public WebElement selectProduct() {  return driver.findElement(SELECT_PRODUCT); }
-    public WebElement productTitle() {  return driver.findElement(PRODUCT_TITLE); }
-    public WebElement addToCart() {  return driver.findElement(ADD_TO_CART); }
-    public WebElement addToCartMsg() {  return driver.findElement(ADD_TO_CART_MSG); }
-    public WebElement cartBtn() {  return driver.findElement(CART_BTN); }
-    public WebElement shoppingCartTitle() {  return driver.findElement(SHOPPING_CART_TITLE); }
+    public WebElement clickSignIn() {
+        return driver.findElement(SIGN_IN);
+    }
+
+    public WebElement verifySignInTitle() {
+        return driver.findElement(SIGN_IN_TITLE);
+    }
+
+    public WebElement emailField() {
+        return driver.findElement(EMAIL_FIELD);
+    }
+
+    public WebElement continueBtn() {
+        return driver.findElement(CONTINUE_BTN);
+    }
+
+    public WebElement passwdField() {
+        return driver.findElement(PASSWD_FIELD);
+    }
+
+    public WebElement searchBox() {
+        return driver.findElement(SEARCH_BOX);
+    }
+
+    public WebElement searchBtn() {
+        return driver.findElement(SEARCH_BTN);
+    }
+
+    public List<WebElement> products() {
+        return driver.findElements(PRODUCTS);
+    }
+
+    public WebElement selectProduct() {
+        return driver.findElement(SELECT_PRODUCT);
+    }
+
+    public WebElement productTitle() {
+        return driver.findElement(PRODUCT_TITLE);
+    }
+
+    public WebElement addToCart() {
+        return driver.findElement(ADD_TO_CART);
+    }
+
+    public WebElement addToCartMsg() {
+        return driver.findElement(ADD_TO_CART_MSG);
+    }
+
+    public WebElement cartBtn() {
+        return driver.findElement(CART_BTN);
+    }
+
+    public WebElement shoppingCartTitle() {
+        return driver.findElement(SHOPPING_CART_TITLE);
+    }
 
     public void currentWindow() {
-        for(String winHandle : driver.getWindowHandles()){
+        for (String winHandle : driver.getWindowHandles()) {
             driver.switchTo().window(winHandle);
         }
     }
@@ -56,9 +98,14 @@ public class LoginPage {
     public void implicitWait(String countStr, String unit) throws InterruptedException {
         int count = Integer.parseInt(countStr);
         switch (unit) {
-            case "mins": sleep(count * 60 * 1000); break;
-            case "secs": sleep(count * 1000); break;
-            default: sleep(count);
+            case "mins":
+                sleep((long) count * 60 * 1000);
+                break;
+            case "secs":
+                sleep(count * 1000L);
+                break;
+            default:
+                sleep(count);
         }
     }
 }
