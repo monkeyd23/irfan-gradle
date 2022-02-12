@@ -1,0 +1,24 @@
+plugins {
+    id 'java'
+}
+
+group 'org.example'
+version '1.0'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'info.cukes:cucumber-java:1.2.6'
+    implementation 'org.seleniumhq.selenium:selenium-api:4.1.2'
+    implementation 'org.seleniumhq.selenium:selenium-chrome-driver:4.1.2'
+    implementation 'org.seleniumhq.selenium:selenium-firefox-driver:4.1.2'
+    implementation 'org.seleniumhq.selenium:selenium-support:4.1.2'
+    testImplementation 'info.cukes:cucumber-junit:1.2.6'
+    testImplementation 'org.assertj:assertj-core:3.22.0'
+}
+
+test {
+    useJUnitPlatform()
+}
