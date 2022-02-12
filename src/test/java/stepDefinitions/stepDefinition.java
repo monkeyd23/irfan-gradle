@@ -36,6 +36,7 @@ public class stepDefinition {
     }
 
     @Then("^Home page is populated$")
+
     public void home_page_is_populated() {
         System.out.println("Home page is populated");
     }
