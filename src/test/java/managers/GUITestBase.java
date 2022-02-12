@@ -1,4 +1,4 @@
-package hooks;
+package managers;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -11,9 +11,7 @@ public class GUITestBase {
     private WebDriver driver;
     static String driverPath = System.getProperty("user.dir") + "/src/test/drivers/";
 
-    public WebDriver getDriver() {
-        return driver;
-    }
+    public WebDriver getDriver() { return driver; }
 
     public void initializeTestBaseSetup(String browserType, String appURL) {
         try {

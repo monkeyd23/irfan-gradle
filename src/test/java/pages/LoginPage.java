@@ -1,18 +1,17 @@
 package pages;
 
-import hooks.GUITestBase;
+import managers.GUITestBase;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 
 import java.util.List;
-import java.util.concurrent.TimeUnit;
 
 import static java.lang.Thread.sleep;
 
 public class LoginPage extends GUITestBase {
 
-    private WebDriver driver = getDriver();
+    private WebDriver driver;
 
     public LoginPage(WebDriver driver) {
         this.driver = driver;
@@ -33,9 +32,7 @@ public class LoginPage extends GUITestBase {
     By CART_BTN = By.xpath("//span[text()=' Cart ']");
     By SHOPPING_CART_TITLE = By.xpath("//h1[contains(text(),'Shopping Cart')]");
 
-    public WebElement clickSignIn() {
-        return driver.findElement(SIGN_IN);
-    }
+    public WebElement clickSignIn() { return driver.findElement(SIGN_IN); }
 
     public WebElement verifySignInTitle() {
         return driver.findElement(SIGN_IN_TITLE);

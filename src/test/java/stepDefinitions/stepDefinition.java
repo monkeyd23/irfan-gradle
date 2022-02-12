@@ -4,7 +4,7 @@ import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import hooks.GUITestBase;
+import managers.GUITestBase;
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -16,23 +16,25 @@ import java.util.List;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class stepDefinition extends GUITestBase {
-    private WebDriver driver;
+    private WebDriver driver = getDriver();
 
-    static String driverPath = System.getProperty("user.dir") + "/src/test/drivers/";
-    static LoginPage loginPage = getLoginPage();
+//    static String driverPath = System.getProperty("user.dir") + "/src/test/drivers/";
+//    static LoginPage loginPage = getLoginPage();
+//
+//    public static LoginPage getLoginPage() {
+//        System.out.println("Launching google chrome with new profile..");
+//        System.setProperty("webdriver.chrome.driver", driverPath + "chromedriver.exe");
+//        WebDriver driver = new ChromeDriver();
+//        driver.manage().window().maximize();
+//        driver.navigate().to("https://www.amazon.in/");
+//        return new LoginPage(driver);
+//    }
 
-    public static LoginPage getLoginPage() {
-        System.out.println("Launching google chrome with new profile..");
-        System.setProperty("webdriver.chrome.driver", driverPath + "chromedriver.exe");
-        WebDriver driver = new ChromeDriver();
-        driver.manage().window().maximize();
-        driver.navigate().to("https://www.amazon.in/");
-        return new LoginPage(driver);
-    }
-
+    LoginPage loginPage = new LoginPage(driver);
 
     @Given("^User is at login page$")
     public void user_is_at_login_page() {
+        System.out.println("User is at login page");
         loginPage.clickSignIn().click();
         assertThat(loginPage.verifySignInTitle().getText().equals("Sign-In"));
     }
