@@ -8,12 +8,30 @@ import java.util.Arrays;
 
 public class GUITestBase {
 
+    // Static instance of the same class
+    private static GUITestBase base;
+
     private WebDriver driver;
     static String driverPath = System.getProperty("user.dir") + "/src/test/drivers/";
 
-    public WebDriver getDriver() { return driver; }
+    // Constructor should be private
+    private GUITestBase() {
+    }
 
-    public void initializeTestBaseSetup(String browserType, String appURL) {
+    // First initialization when Static instance is null
+    public static void setWebDriver(String browserType, String appURL) {
+        if (base == null) {
+            base = new GUITestBase();
+            base.initializeTestBaseSetup(browserType, appURL);
+        }
+    }
+
+    public static WebDriver getDriver() {
+        if (base == null) throw new IllegalStateException("WEBDRIVER is IS NOT SETUP");
+        return base.driver;
+    }
+
+    private void initializeTestBaseSetup(String browserType, String appURL) {
         try {
             driver = "firefox".equals(browserType) ? initFirefoxDriver(appURL) : initChromeDriver(appURL);
         } catch (Exception e) {
@@ -39,7 +57,7 @@ public class GUITestBase {
     }
 
 
-    public void tearDown() {
-        driver.quit();
+    public static void tearDown() {
+        base.driver.quit();
     }
 }

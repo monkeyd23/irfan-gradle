@@ -9,12 +9,12 @@ import java.util.List;
 
 import static java.lang.Thread.sleep;
 
-public class LoginPage extends GUITestBase {
+public class LoginPage {
 
-    private WebDriver driver;
+    private final WebDriver driver;
 
-    public LoginPage(WebDriver driver) {
-        this.driver = driver;
+    public LoginPage() {
+        this.driver = GUITestBase.getDriver();
     }
 
     By SIGN_IN = By.xpath("//*[@id='nav-link-accountList']");
@@ -32,7 +32,9 @@ public class LoginPage extends GUITestBase {
     By CART_BTN = By.xpath("//span[text()=' Cart ']");
     By SHOPPING_CART_TITLE = By.xpath("//h1[contains(text(),'Shopping Cart')]");
 
-    public WebElement clickSignIn() { return driver.findElement(SIGN_IN); }
+    public WebElement clickSignIn() {
+        return driver.findElement(SIGN_IN);
+    }
 
     public WebElement verifySignInTitle() {
         return driver.findElement(SIGN_IN_TITLE);
@@ -89,20 +91,6 @@ public class LoginPage extends GUITestBase {
     public void currentWindow() {
         for (String winHandle : driver.getWindowHandles()) {
             driver.switchTo().window(winHandle);
-        }
-    }
-
-    public void implicitWait(String countStr, String unit) throws InterruptedException {
-        int count = Integer.parseInt(countStr);
-        switch (unit) {
-            case "mins":
-                sleep((long) count * 60 * 1000);
-                break;
-            case "secs":
-                sleep(count * 1000L);
-                break;
-            default:
-                sleep(count);
         }
     }
 }

@@ -1,5 +1,6 @@
 package stepDefinitions;
 
+import common.Helpers;
 import cucumber.api.java.en.And;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
@@ -15,22 +16,9 @@ import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-public class stepDefinition extends GUITestBase {
-    private WebDriver driver = getDriver();
+public class stepDefinition {
 
-//    static String driverPath = System.getProperty("user.dir") + "/src/test/drivers/";
-//    static LoginPage loginPage = getLoginPage();
-//
-//    public static LoginPage getLoginPage() {
-//        System.out.println("Launching google chrome with new profile..");
-//        System.setProperty("webdriver.chrome.driver", driverPath + "chromedriver.exe");
-//        WebDriver driver = new ChromeDriver();
-//        driver.manage().window().maximize();
-//        driver.navigate().to("https://www.amazon.in/");
-//        return new LoginPage(driver);
-//    }
-
-    LoginPage loginPage = new LoginPage(driver);
+    LoginPage loginPage = new LoginPage();
 
     @Given("^User is at login page$")
     public void user_is_at_login_page() {
@@ -64,11 +52,11 @@ public class stepDefinition extends GUITestBase {
     public void select_product_from_list(String product) throws InterruptedException {
         loginPage.searchBtn().sendKeys(Keys.PAGE_DOWN);
         loginPage.selectProduct().click();
-        loginPage.implicitWait("10", "secs");
+        Helpers.implicitWait("10", "secs");
         loginPage.currentWindow();
         assertThat(loginPage.productTitle().getText().contains(product));
         loginPage.addToCart().click();
-        loginPage.implicitWait("10", "secs");
+        Helpers.implicitWait("10", "secs");
         assertThat(loginPage.addToCartMsg().getText().equals("Added to Cart"));
         System.out.println("Cards are displayed");
     }
